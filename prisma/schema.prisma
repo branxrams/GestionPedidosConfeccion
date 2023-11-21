@@ -10,20 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Producto {
-  id          Int       @id @default(autoincrement())
-  nombre      String
-  precio      Float
-  imagen      String
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
-  categoriaId Int
-}
-
 model Categoria {
-  id        Int        @id @default(autoincrement())
-  nombre    String
-  icono     String
-  productos Producto[]
+  id     Int    @id @default(autoincrement())
+  nombre String
+  icono  String
 }
 
 model Orden {
@@ -33,4 +23,72 @@ model Orden {
   total  Float
   pedido Json
   estado Boolean @default(false)
+}
+
+model Colegio {
+  id           Int            @id @default(autoincrement())
+  nombre       String
+  Prenda       Prenda[]
+  PrecioTorso  PrecioTorso[]
+  PrecioPierna PrecioPierna[]
+}
+
+model Prenda {
+  id            Int            @id @default(autoincrement())
+  nombre        String
+  colegioId     Int
+  tallaTorsoId  Int?
+  tallaPiernaId Int?
+  tipoPrendaId  Int
+  //relactions
+  colegio       Colegio        @relation(fields: [colegioId], references: [id])
+  tallaTorso    TallaTorso?    @relation(fields: [tallaTorsoId], references: [id])
+  tallaPierna   TallaPierna?   @relation(fields: [tallaPiernaId], references: [id])
+  tipoPrenda    TipoPrenda     @relation(fields: [tipoPrendaId], references: [id])
+  PrecioTorso   PrecioTorso[]
+  PrecioPierna  PrecioPierna[]
+}
+
+model TipoPrenda {
+  id     Int      @id @default(autoincrement())
+  nombre String
+  Prenda Prenda[]
+}
+
+model TallaTorso {
+  id          Int           @id @default(autoincrement())
+  nombre      String
+  Prenda      Prenda[]
+  PrecioTorso PrecioTorso[]
+}
+
+model TallaPierna {
+  id           Int            @id @default(autoincrement())
+  nombre       String
+  Prenda       Prenda[]
+  PrecioPierna PrecioPierna[]
+}
+
+model PrecioTorso {
+  id        Int        @id @default(autoincrement())
+  precio    Float
+  colegioId Int
+  prendaId  Int
+  tallaId   Int
+  //relations
+  prenda    Prenda     @relation(fields: [prendaId], references: [id])
+  talla     TallaTorso @relation(fields: [tallaId], references: [id])
+  colegio   Colegio    @relation(fields: [colegioId], references: [id])
+}
+
+model PrecioPierna {
+  id        Int         @id @default(autoincrement())
+  precio    Float
+  colegioId Int
+  prendaId  Int
+  tallaId   Int
+  //relations
+  prenda    Prenda      @relation(fields: [prendaId], references: [id])
+  talla     TallaPierna @relation(fields: [tallaId], references: [id])
+  colegio   Colegio     @relation(fields: [colegioId], references: [id])
 }

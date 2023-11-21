@@ -1,22 +1,16 @@
 const categorias = [
     {
         icono: "cafe",
-        nombre: "Buscador"
-      },
-      {
+        nombre: "Buscador",
+    },
+    {
         icono: "hamburguesa",
-        nombre: "Diario masculino"
-      },
-      {
+        nombre: "Abonos",
+    },
+    {
         icono: "pizza",
-        nombre: "Diario Femenino"
-      },
-      {
-        icono: "dona",
-        nombre: "Educación física"
-      },
-]
+        nombre: "Reportes",
+    },
+];
 
-export {
-    categorias 
-}
+export { categorias };
