@@ -1,18 +1,18 @@
 import { useRouter } from "next/router";
 
 const pasos = [
-    { paso: 1, nombre: "Prendas", url: "/" },
+    { paso: 1, nombre: "Prendas", url: "/pedidos" },
     { paso: 2, nombre: "Resumen", url: "/resumen" },
     { paso: 3, nombre: "Datos y Total", url: "/total" },
 ];
 
-export default function Pedidos() {
+export default function RutaPedidos() {
     const router = useRouter();
 
     const calcularProgreso = () => {
         let valor;
         switch (router.pathname) {
-            case "/":
+            case "/pedidos":
                 valor = 2;
                 break;
             case "/resumen":

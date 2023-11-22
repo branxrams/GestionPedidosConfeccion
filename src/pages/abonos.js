@@ -7,7 +7,7 @@ export default function Abonos() {
 
     return (
         <Layout pagina={`${nombre}`}>
-            <h1>{nombre}</h1>
+            <h1>index Abonos</h1>
         </Layout>
     );
 }

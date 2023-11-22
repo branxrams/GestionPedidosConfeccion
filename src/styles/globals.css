@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    border: 1px red solid;
-}
+/* * {
+    border: red solid 1px;
+} */
 
 body {
     height: 100vh;

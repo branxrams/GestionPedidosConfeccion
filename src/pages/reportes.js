@@ -7,7 +7,7 @@ export default function Reportes() {
 
     return (
         <Layout pagina={`${nombre}`}>
-            <h1>{nombre}</h1>
+            <h1>index reportes</h1>
         </Layout>
     );
 }

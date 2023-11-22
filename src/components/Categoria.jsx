@@ -1,17 +1,19 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
 import useConfeccion from "@/hooks/useConfeccion";
 
 export default function Categoria({ categoria }) {
-    const { nombre, icono, id } = categoria;
+    const router = useRouter();
+    const nombreRuta = router.pathname.toLowerCase();
 
-    const { categoriaActual, handleCategoriaActual } = useConfeccion();
+    const { nombre, icono } = categoria;
 
     return (
         <button
             className={`${
-                categoriaActual?.id === id ? "bg-blue-rgba" : ""
+                nombreRuta === "/" + nombre.toLowerCase() ? "bg-blue-rgba" : ""
             } flex w-full justify-center items-center gap-4 border p-5 hover:bg-blue-rgba`}
-            onClick={() => handleCategoriaActual(id)}
+            onClick={() => router.push(`/${nombre.toLowerCase()}`)}
         >
             <Image
                 width={50}
