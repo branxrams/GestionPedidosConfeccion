@@ -7,7 +7,9 @@ const ConfeccionContext = createContext();
 const ConfeccionProvider = ({ children }) => {
     const [categorias, setCategorias] = useState([]);
     const [categoriaActual, setCategoriaActual] = useState({});
-    const [prendas, setprendas] = useState([]);
+    const [prendas, setPrendas] = useState([]);
+    const [prenda, setPrenda] = useState({});
+    const [modal, setModal] = useState(false);
 
     const router = useRouter();
 
@@ -23,7 +25,7 @@ const ConfeccionProvider = ({ children }) => {
     const obtenerColegios = async () => {
         try {
             const { data } = await axios("/api/colegios");
-            setprendas(data);
+            setPrendas(data);
         } catch (error) {
             console.log(error);
         }
@@ -33,6 +35,14 @@ const ConfeccionProvider = ({ children }) => {
         const categoria = categorias.filter((c) => c.id === id);
         setCategoriaActual(categoria[0]);
         router.push(`/${categoriaActual?.nombre.toLowerCase()}`);
+    };
+
+    const handleSetPrenda = (prenda) => {
+        setPrenda(prenda);
+    };
+
+    const handleChangeModal = () => {
+        setModal(!modal);
     };
 
     useEffect(() => {
@@ -51,6 +61,10 @@ const ConfeccionProvider = ({ children }) => {
                 categoriaActual,
                 handleCategoriaActual,
                 prendas,
+                prenda,
+                modal,
+                handleSetPrenda,
+                handleChangeModal,
             }}
         >
             {children}

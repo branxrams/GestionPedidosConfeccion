@@ -1,24 +1,34 @@
-import { tallasPiernas } from "./data/tallasPiernas";
-import { tallasTorso } from "./data/tallasTorso";
 import { PrismaClient } from "@prisma/client";
+
+import { talla } from "./data/tallas";
+import { colegios } from "./data/colegios";
+import { tiposPrendas } from "./data/tipoPrendas";
+import { categorias } from "./data/categorias";
+import { precios } from "./data/precios";
 
 const prisma = new PrismaClient();
 
 const main = async (): Promise<void> => {
     try {
-        await prisma.tallaPierna.createMany({
-            data: tallasPiernas,
+        // await prisma.tallas.createMany({
+        //     data: talla,
+        // });
+        // await prisma.colegios.createMany({
+        //     data: colegios,
+        // });
+        // await prisma.categoria.createMany({
+        //     data: categorias,
+        // });
+        // await prisma.tipoPrendas.createMany({
+        //     data: tiposPrendas,
+        // });
+
+        await prisma.precios.createMany({
+            data: precios,
         });
-        await prisma.tallaTorso.createMany({
-            data: tallasTorso,
-        });
-        await prisma.tipoPrenda.createMany({
-            data: [
-                { nombre: "Uniforme diario" },
-                { nombre: "uniforme Educacion Fisica" },
-            ],
-        });
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 main();

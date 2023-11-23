@@ -3,40 +3,48 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-    const infoPrendas = await prisma.prenda.findMany({
-        select: {
-            colegio: {
-                select: {
-                    nombre: true,
-                },
-            },
-            tipoPrenda: {
-                select: {
-                    nombre: true,
+    const colegios = await prisma.colegios.findMany({
+        include: {
+            Precios: {
+                include: {
+                    tallas: true,
+                    tipoPrendas: true,
                 },
             },
         },
     });
 
-    // Agrupar por nombre de colegio y crear un conjunto único de tipos de prendas
-    const groupedInfo = infoPrendas.reduce((acc, { colegio, tipoPrenda }) => {
-        const key = colegio.nombre;
-        if (!acc[key]) {
-            acc[key] = new Set();
-        }
-        acc[key].add(tipoPrenda.nombre);
-        return acc;
-    }, {});
+    const resultado = [];
+    colegios.forEach((colegio) => {
+        const datosColegio = {
+            id: colegio.id, // Genera un ID único
+            colegio: colegio.nombre,
+            prendas: [],
+        };
 
-    // Formatear los datos en un arreglo para la respuesta
-    const formattedInfo = Object.entries(groupedInfo).flatMap(
-        ([colegio, tiposPrenda]) =>
-            Array.from(tiposPrenda).map((prenda, index) => ({
-                id: `${colegio}-${prenda}-${index}`, // Generar un ID único
-                colegio,
-                prenda,
-            }))
-    );
+        const prendasMap = {};
 
-    return res.status(200).json(formattedInfo);
+        colegio.Precios.forEach((precio) => {
+            const prendaId = precio.tipoPrendas.id;
+
+            if (!prendasMap[prendaId]) {
+                prendasMap[prendaId] = {
+                    id: Math.random().toString(36).substr(2, 9),
+                    colegio: colegio.nombre,
+                    prenda: precio.tipoPrendas.nombre,
+                    precios: [],
+                };
+            }
+
+            prendasMap[prendaId].precios.push({
+                talla: precio.tallas.talla,
+                precio: precio.precio,
+            });
+        });
+
+        datosColegio.prendas = Object.values(prendasMap);
+        resultado.push(datosColegio);
+    });
+
+    return res.status(200).json(resultado);
 }

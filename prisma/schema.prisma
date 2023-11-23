@@ -16,79 +16,44 @@ model Categoria {
   icono  String
 }
 
-model Orden {
-  id     Int     @id @default(autoincrement())
-  nombre String
-  fecha  String
-  total  Float
-  pedido Json
-  estado Boolean @default(false)
+// model Ordenes {
+//   id        Int    @id @default(autoincrement())
+//   nombre    String
+//   direccion String
+//   telefono  String
+//   fecha     String
+//   total     Float
+//   abono     Float
+//   pedido    Json
+//   estado    String
+// }
+
+model Colegios {
+  id      Int       @id @default(autoincrement())
+  nombre  String
+  Precios Precios[]
 }
 
-model Colegio {
-  id           Int            @id @default(autoincrement())
-  nombre       String
-  Prenda       Prenda[]
-  PrecioTorso  PrecioTorso[]
-  PrecioPierna PrecioPierna[]
+model TipoPrendas {
+  id      Int       @id @default(autoincrement())
+  nombre  String
+  Precios Precios[]
 }
 
-model Prenda {
-  id            Int            @id @default(autoincrement())
-  nombre        String
-  colegioId     Int
-  tallaTorsoId  Int?
-  tallaPiernaId Int?
-  tipoPrendaId  Int
-  //relactions
-  colegio       Colegio        @relation(fields: [colegioId], references: [id])
-  tallaTorso    TallaTorso?    @relation(fields: [tallaTorsoId], references: [id])
-  tallaPierna   TallaPierna?   @relation(fields: [tallaPiernaId], references: [id])
-  tipoPrenda    TipoPrenda     @relation(fields: [tipoPrendaId], references: [id])
-  PrecioTorso   PrecioTorso[]
-  PrecioPierna  PrecioPierna[]
+model Tallas {
+  id      Int       @id @default(autoincrement())
+  talla   String
+  Precios Precios[]
 }
 
-model TipoPrenda {
-  id     Int      @id @default(autoincrement())
-  nombre String
-  Prenda Prenda[]
-}
-
-model TallaTorso {
-  id          Int           @id @default(autoincrement())
-  nombre      String
-  Prenda      Prenda[]
-  PrecioTorso PrecioTorso[]
-}
-
-model TallaPierna {
-  id           Int            @id @default(autoincrement())
-  nombre       String
-  Prenda       Prenda[]
-  PrecioPierna PrecioPierna[]
-}
-
-model PrecioTorso {
-  id        Int        @id @default(autoincrement())
-  precio    Float
-  colegioId Int
-  prendaId  Int
-  tallaId   Int
-  //relations
-  prenda    Prenda     @relation(fields: [prendaId], references: [id])
-  talla     TallaTorso @relation(fields: [tallaId], references: [id])
-  colegio   Colegio    @relation(fields: [colegioId], references: [id])
-}
-
-model PrecioPierna {
-  id        Int         @id @default(autoincrement())
-  precio    Float
-  colegioId Int
-  prendaId  Int
-  tallaId   Int
-  //relations
-  prenda    Prenda      @relation(fields: [prendaId], references: [id])
-  talla     TallaPierna @relation(fields: [tallaId], references: [id])
-  colegio   Colegio     @relation(fields: [colegioId], references: [id])
+model Precios {
+  id          Int         @id @default(autoincrement())
+  precio      Float
+  colegioId   Int
+  prendaId    Int
+  tallaId     Int
+  //relation
+  colegios    Colegios    @relation(fields: [colegioId], references: [id])
+  tipoPrendas TipoPrendas @relation(fields: [prendaId], references: [id])
+  tallas      Tallas      @relation(fields: [tallaId], references: [id])
 }
