@@ -4,7 +4,8 @@ import Image from "next/image";
 import { formatearDinero } from "@/helpers";
 
 export default function ModalPrenda() {
-    const { prenda, handleChangeModal } = useConfeccion();
+    const { prenda, handleChangeModal, handleAgregarPedido, pedido } =
+        useConfeccion();
 
     const [cantidad, setCantidad] = useState(1);
     const [edicion, setEdicion] = useState(false);
@@ -18,6 +19,17 @@ export default function ModalPrenda() {
 
         setPrecio(newPrecio?.precio);
     };
+
+    useEffect(() => {
+        if (pedido.some((pedidoState) => pedidoState.id === prenda.id)) {
+            const prendaEdicion = pedido.find(
+                (pedidoState) => pedidoState.id === prenda.id
+            );
+            setEdicion(true);
+            setCantidad(prendaEdicion.cantidad);
+            setTalla(prendaEdicion.talla);
+        }
+    }, [prenda, pedido]);
 
     useEffect(() => {
         changePrecio(talla);
@@ -62,26 +74,89 @@ export default function ModalPrenda() {
                     {formatearDinero(precio ? precio : 0)}
                 </p>
 
-                <div className="flex gap-4 my-5">
-                    <button type="button">cantidades</button>
-                    <select
-                        className="border rounded-md"
-                        id="talla"
-                        value={talla}
-                        onChange={(e) => setTalla(e.target.value)}
-                    >
-                        <option>--Talla--</option>
-                        {prenda.precios.map((precio) => (
-                            <option key={precio.talla} value={precio.talla}>
-                                {precio.talla}
-                            </option>
-                        ))}
-                    </select>
-                    <button type="button">Adicionales</button>
+                <div className="flex gap-10 my-5 items-center">
+                    <div className="flex gap-4">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (cantidad <= 1) return;
+                                setCantidad(cantidad - 1);
+                            }}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-7 h-7"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                        </button>
+                        <p className="text-xl">{cantidad}</p>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (cantidad >= 5) return;
+                                setCantidad(cantidad + 1);
+                            }}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-7 h-7"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                        <label className="text-xl" htmlFor="talla">
+                            Talla:{" "}
+                        </label>
+                        <select
+                            className="border rounded-md text-xl py-2 px-4"
+                            id="talla"
+                            value={talla}
+                            onChange={(e) => setTalla(e.target.value)}
+                        >
+                            <option>--Selecciona--</option>
+                            {prenda.precios.map((precio) => (
+                                <option key={precio.talla} value={precio.talla}>
+                                    {precio.talla}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <button
                     type="button"
-                    className="bg-indigo-400 hover:bg-indigo-600 px-5 py-2  text-white font-bold rounded-md"
+                    className={`${
+                        talla
+                            ? "bg-indigo-600 hover:bg-indigo-400"
+                            : "bg-indigo-200 cursor-not-allowed"
+                    } px-5 py-2  text-white font-bold rounded-md`}
+                    onClick={() => {
+                        handleAgregarPedido({
+                            ...prenda,
+                            cantidad,
+                            talla,
+                            precio,
+                        });
+                    }}
+                    disabled={!talla}
                 >
                     {edicion ? "Guardar Cambios" : "Añadir al pedido"}
                 </button>

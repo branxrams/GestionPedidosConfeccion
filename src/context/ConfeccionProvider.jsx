@@ -10,6 +10,7 @@ const ConfeccionProvider = ({ children }) => {
     const [prendas, setPrendas] = useState([]);
     const [prenda, setPrenda] = useState({});
     const [modal, setModal] = useState(false);
+    const [pedido, setPedido] = useState([]);
 
     const router = useRouter();
 
@@ -45,6 +46,35 @@ const ConfeccionProvider = ({ children }) => {
         setModal(!modal);
     };
 
+    const handleAgregarPedido = ({ ...prenda }) => {
+        if (pedido.some((prendaState) => prendaState.id === prenda.id)) {
+            //Actualiza la cantidad
+            const pedidoActualizado = pedido.map((prendaState) =>
+                prendaState.id === prenda.id ? prenda : prendaState
+            );
+            setPedido(pedidoActualizado);
+        } else {
+            setPedido([...pedido, prenda]);
+        }
+        setModal(false);
+    };
+
+    const handleEditarPrenda = (id) => {
+        const productoActualizar = pedido.filter(
+            (producto) => producto.id === id
+        );
+
+        setPrenda(productoActualizar[0]);
+        setModal(!modal);
+    };
+
+    const handleEliminarPrenda = (id) => {
+        const pedidoActualizar = pedido.filter(
+            (producto) => producto.id !== id
+        );
+        setPedido(pedidoActualizar);
+    };
+
     useEffect(() => {
         obtenerCategorias();
         obtenerColegios();
@@ -65,6 +95,10 @@ const ConfeccionProvider = ({ children }) => {
                 modal,
                 handleSetPrenda,
                 handleChangeModal,
+                handleAgregarPedido,
+                pedido,
+                handleEditarPrenda,
+                handleEliminarPrenda,
             }}
         >
             {children}

@@ -25,7 +25,7 @@ export default function LayoutPedidos({ children }) {
 
             {modal && (
                 <Modal isOpen={modal} style={customStyles}>
-                    <ModalPrenda key={prenda.id} />
+                    <ModalPrenda />
                 </Modal>
             )}
         </section>

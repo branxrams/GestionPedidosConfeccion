@@ -12,13 +12,13 @@ export default function Categoria({ categoria }) {
         <button
             className={`${
                 nombreRuta === "/" + nombre.toLowerCase() ? "bg-blue-rgba" : ""
-            } flex w-full justify-center items-center gap-4 border p-5 hover:bg-blue-rgba`}
+            } flex w-full justify-start items-center gap-4 border p-5 hover:bg-blue-rgba`}
             onClick={() => router.push(`/${nombre.toLowerCase()}`)}
         >
             <Image
-                width={50}
-                height={50}
-                src={`/assets/img/icono_${icono}.svg`}
+                width={70}
+                height={70}
+                src={`/assets/img/icono_${icono}.png`}
                 alt={`logo ${icono}`}
             />
 

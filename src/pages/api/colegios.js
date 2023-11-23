@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const resultado = [];
     colegios.forEach((colegio) => {
         const datosColegio = {
-            id: colegio.id, // Genera un ID único
+            id: colegio.id,
             colegio: colegio.nombre,
             prendas: [],
         };
@@ -29,7 +29,11 @@ export default async function handler(req, res) {
 
             if (!prendasMap[prendaId]) {
                 prendasMap[prendaId] = {
-                    id: Math.random().toString(36).substr(2, 9),
+                    id:
+                        "SKU-" +
+                        colegio.nombre +
+                        "-" +
+                        precio.tipoPrendas.nombre,
                     colegio: colegio.nombre,
                     prenda: precio.tipoPrendas.nombre,
                     precios: [],
