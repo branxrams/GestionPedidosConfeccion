@@ -11,6 +11,7 @@ const ConfeccionProvider = ({ children }) => {
     const [prendas, setPrendas] = useState([]);
     const [prenda, setPrenda] = useState({});
     const [modal, setModal] = useState(false);
+    const [modalAnotaciones, setModalAnotaciones] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
 
@@ -48,6 +49,10 @@ const ConfeccionProvider = ({ children }) => {
         setModal(!modal);
     };
 
+    const handleChangeModalAnotaciones = () => {
+        setModalAnotaciones(!modalAnotaciones);
+    };
+
     const handleAgregarPedido = ({ ...prenda }) => {
         if (pedido.some((prendaState) => prendaState.id === prenda.id)) {
             //Actualiza la cantidad
@@ -55,14 +60,23 @@ const ConfeccionProvider = ({ children }) => {
                 prendaState.id === prenda.id ? prenda : prendaState
             );
             setPedido(pedidoActualizado);
-            toast.success("Cantidad Actualizada Correctamente");
+            toast.success("Pedido Actualizado Correctamente");
         } else {
             setPedido([...pedido, prenda]);
             toast.success("Prenda agregada al pedido");
         }
+        setModalAnotaciones(false);
         setModal(false);
     };
 
+    const handleEditarAnotaciones = (id) => {
+        const productoActualizar = pedido.filter(
+            (producto) => producto.id === id
+        );
+
+        setPrenda(productoActualizar[0]);
+        setModalAnotaciones(!modalAnotaciones);
+    };
     const handleEditarPrenda = (id) => {
         const productoActualizar = pedido.filter(
             (producto) => producto.id === id
@@ -116,6 +130,9 @@ const ConfeccionProvider = ({ children }) => {
                 handleEliminarPrenda,
                 handleColocarPedido,
                 total,
+                modalAnotaciones,
+                handleChangeModalAnotaciones,
+                handleEditarAnotaciones,
             }}
         >
             {children}

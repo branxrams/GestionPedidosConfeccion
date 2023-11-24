@@ -5,6 +5,7 @@ import useConfeccion from "@/hooks/useConfeccion";
 import ModalPrenda from "@/components/ModalPrenda";
 
 import "react-toastify/dist/ReactToastify.css";
+import ModalMedidas from "@/components/ModalMedidas";
 
 const customStyles = {
     content: {
@@ -20,7 +21,7 @@ const customStyles = {
 Modal.setAppElement("#__next");
 
 export default function LayoutPedidos({ children }) {
-    const { modal, prenda } = useConfeccion();
+    const { modal, prenda, modalAnotaciones } = useConfeccion();
 
     return (
         <>
@@ -31,6 +32,11 @@ export default function LayoutPedidos({ children }) {
                 {modal && (
                     <Modal isOpen={modal} style={customStyles}>
                         <ModalPrenda />
+                    </Modal>
+                )}
+                {modalAnotaciones && (
+                    <Modal isOpen={modalAnotaciones} style={customStyles}>
+                        <ModalMedidas />
                     </Modal>
                 )}
             </section>

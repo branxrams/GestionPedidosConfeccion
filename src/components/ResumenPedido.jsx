@@ -2,7 +2,11 @@ import useConfeccion from "@/hooks/useConfeccion";
 import { formatearDinero } from "@/helpers";
 
 export default function ResumenPedido({ producto }) {
-    const { handleEditarPrenda, handleEliminarPrenda } = useConfeccion();
+    const {
+        handleEditarPrenda,
+        handleEliminarPrenda,
+        handleEditarAnotaciones,
+    } = useConfeccion();
 
     return (
         <div className="shadow-md p-5 mb-3 flex gap-10 items-center">
@@ -25,6 +29,7 @@ export default function ResumenPedido({ producto }) {
                 <button
                     type="button"
                     className="flex gap-2 justify-center items-center bg-blue-rgba px-5 py-2 text-white rounded-md font-bold uppercase shadow-md w-full"
+                    onClick={() => handleEditarAnotaciones(producto.id)}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
