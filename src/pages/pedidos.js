@@ -18,13 +18,13 @@ export default function Pedidos() {
         <Layout pagina={`${nombre}`}>
             <LayoutPedidos>
                 <h1 className="text-4xl font-black">Prendas</h1>
-                <p className="text-xl my-5">Buscar y elejir la prenda</p>
+                <p className="text-xl my-5">Buscar y elegir la prenda</p>
                 <form className="flex flex-col py-5 shadow-md border mb-5 px-3">
                     <label className="text-xl font-black" htmlFor="search">
                         Buscar Colegio
                     </label>
                     <input
-                        className="bg-gray-400 py-3 px-5 mt-2 rounded-xl font-bold placeholder:text-white"
+                        className="bg-gray-50 border border-gray-400 py-3 px-5 mt-2 rounded-xl font-bold "
                         type="text"
                         id="search"
                         placeholder="Escribe nombre de colegio..."

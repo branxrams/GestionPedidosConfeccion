@@ -9,11 +9,12 @@ export default function ResumenPedido({ producto }) {
             <div className=" w-2/3">
                 <h3 className="text-3xl font-bold">{producto.prenda}</h3>
                 <p className="text-2xl ">{producto.colegio}</p>
+                <p className="text-2xl "> Talla: {producto.talla}</p>
                 <p className="text-xl font-bold mt-3">
                     Cantidad: {producto.cantidad}
                 </p>
                 <p className="text-sm font-bold mt-5">
-                    Valor unitario: {formatearDinero(producto.precio)}
+                    Precio: {formatearDinero(producto.precio)}
                 </p>
                 <p className="text-xl font-bold text-gray-700 mt-1">
                     Total:{" "}

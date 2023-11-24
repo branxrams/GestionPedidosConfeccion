@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const ConfeccionContext = createContext();
 
@@ -11,6 +12,7 @@ const ConfeccionProvider = ({ children }) => {
     const [prenda, setPrenda] = useState({});
     const [modal, setModal] = useState(false);
     const [pedido, setPedido] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const router = useRouter();
 
@@ -53,8 +55,10 @@ const ConfeccionProvider = ({ children }) => {
                 prendaState.id === prenda.id ? prenda : prendaState
             );
             setPedido(pedidoActualizado);
+            toast.success("Cantidad Actualizada Correctamente");
         } else {
             setPedido([...pedido, prenda]);
+            toast.success("Prenda agregada al pedido");
         }
         setModal(false);
     };
@@ -73,7 +77,10 @@ const ConfeccionProvider = ({ children }) => {
             (producto) => producto.id !== id
         );
         setPedido(pedidoActualizar);
+        toast.error("Prenda eliminada");
     };
+
+    const handleColocarPedido = (datosPedido) => {};
 
     useEffect(() => {
         obtenerCategorias();
@@ -83,6 +90,14 @@ const ConfeccionProvider = ({ children }) => {
     useEffect(() => {
         setCategoriaActual(categorias[0]);
     }, [categorias]);
+
+    useEffect(() => {
+        const nuevoTotal = pedido.reduce(
+            (total, prenda) => prenda.precio * prenda.cantidad + total,
+            0
+        );
+        setTotal(nuevoTotal);
+    }, [pedido]);
 
     return (
         <ConfeccionContext.Provider
@@ -99,6 +114,8 @@ const ConfeccionProvider = ({ children }) => {
                 pedido,
                 handleEditarPrenda,
                 handleEliminarPrenda,
+                handleColocarPedido,
+                total,
             }}
         >
             {children}

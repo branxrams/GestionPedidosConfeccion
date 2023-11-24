@@ -1,7 +1,10 @@
 import Modal from "react-modal";
+import { ToastContainer } from "react-toastify";
 import RutaPedidos from "@/components/RutaPedidos";
 import useConfeccion from "@/hooks/useConfeccion";
 import ModalPrenda from "@/components/ModalPrenda";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const customStyles = {
     content: {
@@ -13,21 +16,25 @@ const customStyles = {
         transform: "translate(-50%, -50%)",
     },
 };
+
 Modal.setAppElement("#__next");
 
 export default function LayoutPedidos({ children }) {
     const { modal, prenda } = useConfeccion();
 
     return (
-        <section>
-            <RutaPedidos />
-            {children}
+        <>
+            <section>
+                <RutaPedidos />
+                {children}
 
-            {modal && (
-                <Modal isOpen={modal} style={customStyles}>
-                    <ModalPrenda />
-                </Modal>
-            )}
-        </section>
+                {modal && (
+                    <Modal isOpen={modal} style={customStyles}>
+                        <ModalPrenda />
+                    </Modal>
+                )}
+            </section>
+            <ToastContainer autoClose={2000} />
+        </>
     );
 }
