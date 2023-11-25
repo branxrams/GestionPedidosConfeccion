@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useConfeccion from "@/hooks/useConfeccion";
 import Layout from "@/layouts/Layout";
 import LayoutPedidos from "@/layouts/LayoutPedidos";
@@ -16,6 +16,14 @@ export default function Total() {
     const [abono, setAbono] = useState("");
     const [error, setError] = useState(false);
 
+    const comprobarPedido = useCallback(() => {
+        return pedido.length === 0;
+    }, [pedido]);
+
+    useEffect(() => {
+        comprobarPedido();
+    }, [pedido, comprobarPedido]);
+
     const handleArmarPedido = (e) => {
         e.preventDefault();
 
@@ -29,9 +37,8 @@ export default function Total() {
             cedula,
             direccion,
             telefono,
-            abono,
+            abono: abono === "" ? 0 : parseFloat(abono),
             pedido,
-            fecha: new Date(),
         };
 
         handleColocarPedido(datosPedido);
@@ -147,10 +154,14 @@ export default function Total() {
                     </div>
                     <div className="mt-5">
                         <input
-                            className={` bg-indigo-600 hover:bg-indigo-800 text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white hover:cursor-pointer`}
+                            className={` ${
+                                comprobarPedido()
+                                    ? "bg-indigo-200 hover:cursor-not-allowed"
+                                    : "bg-indigo-600 hover:bg-indigo-800"
+                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white hover:cursor-pointer`}
                             type="submit"
                             value="Confirmar Pedido"
-                            // disabled={comprobarPedido()}
+                            disabled={comprobarPedido()}
                         />
                     </div>
                 </form>

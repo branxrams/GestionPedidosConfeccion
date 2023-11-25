@@ -5,7 +5,6 @@ import useConfeccion from "@/hooks/useConfeccion";
 export default function ModalMedidas() {
     const {
         prenda,
-        modalAnotaciones,
         handleChangeModalAnotaciones,
         pedido,
         handleAgregarPedido,

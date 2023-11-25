@@ -14,6 +14,7 @@ const ConfeccionProvider = ({ children }) => {
     const [modalAnotaciones, setModalAnotaciones] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
+    const [fecha, setFecha] = useState("");
 
     const router = useRouter();
 
@@ -94,7 +95,26 @@ const ConfeccionProvider = ({ children }) => {
         toast.error("Prenda eliminada");
     };
 
-    const handleColocarPedido = (datosPedido) => {};
+    const handleColocarPedido = async (datosPedido) => {
+        try {
+            await axios.post("/api/pedidos", {
+                datosPedido,
+                total,
+                fecha: Date.now().toString(),
+            });
+
+            setPedido([]);
+            setTotal(0);
+
+            toast.success("Pedido Realizado Correctamente");
+
+            setTimeout(() => {
+                router.push("/pedidos");
+            }, 3000);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         obtenerCategorias();

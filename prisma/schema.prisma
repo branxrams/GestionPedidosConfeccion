@@ -16,17 +16,17 @@ model Categoria {
   icono  String
 }
 
-// model Ordenes {
-//   id        Int    @id @default(autoincrement())
-//   nombre    String
-//   direccion String
-//   telefono  String
-//   fecha     String
-//   total     Float
-//   abono     Float
-//   pedido    Json
-//   estado    String
-// }
+model Pedidos {
+  id        Int     @id @default(autoincrement())
+  nombre    String
+  direccion String
+  telefono  String
+  fecha     String
+  total     Float
+  abono     Float
+  pedido    Json
+  estado    String? @default("Pendiente")
+}
 
 model Colegios {
   id      Int       @id @default(autoincrement())
