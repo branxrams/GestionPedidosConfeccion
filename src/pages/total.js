@@ -156,9 +156,9 @@ export default function Total() {
                         <input
                             className={` ${
                                 comprobarPedido()
-                                    ? "bg-indigo-200 hover:cursor-not-allowed"
-                                    : "bg-indigo-600 hover:bg-indigo-800"
-                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white hover:cursor-pointer`}
+                                    ? "bg-indigo-200 cursor-not-allowed"
+                                    : "bg-indigo-600 hover:bg-indigo-800 cursor-pointer"
+                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
                             type="submit"
                             value="Confirmar Pedido"
                             disabled={comprobarPedido()}

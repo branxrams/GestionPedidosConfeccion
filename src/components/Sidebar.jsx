@@ -16,7 +16,7 @@ export default function Sidebar() {
                     alt="Logo Dayana Sport"
                 />
             </div>
-            <nav className="mt-10 ">
+            <nav>
                 {categorias.map((categoria) => (
                     <Categoria key={categoria.id} categoria={categoria} />
                 ))}
