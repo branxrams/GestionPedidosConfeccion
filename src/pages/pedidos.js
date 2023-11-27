@@ -19,7 +19,7 @@ export default function Pedidos() {
             <LayoutPedidos>
                 <h1 className="text-4xl font-black">Prendas</h1>
                 <p className="text-xl my-5">Buscar y elegir la prenda</p>
-                <form className="flex flex-col py-5 shadow-md border mb-5 px-3">
+                <form className="flex flex-col py-5 shadow-md border mb-5 px-3 rounded-md">
                     <label className="text-xl font-black" htmlFor="search">
                         Buscar Colegio
                     </label>

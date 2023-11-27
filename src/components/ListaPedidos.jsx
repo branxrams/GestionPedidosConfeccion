@@ -22,6 +22,9 @@ export default function ListaPedidos({ pedidos }) {
                                 Prenda: {prenda.prenda}
                             </h4>
                             <p className="text-lg font-bold">
+                                Colegio: {prenda.colegio}
+                            </p>
+                            <p className="text-lg font-bold">
                                 Cantidad: {prenda.cantidad}
                             </p>
                             <p className="text-lg font-bold">

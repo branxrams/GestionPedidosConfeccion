@@ -19,6 +19,7 @@ model Categoria {
 model Pedidos {
   id        Int     @id @default(autoincrement())
   nombre    String
+  cedula    String
   direccion String
   telefono  String
   fecha     String

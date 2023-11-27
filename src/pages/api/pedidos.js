@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         const pedido = await prisma.pedidos.create({
             data: {
                 nombre: req.body.datosPedido.nombre,
+                cedula: req.body.datosPedido.cedula,
                 direccion: req.body.datosPedido.direccion,
                 telefono: req.body.datosPedido.telefono,
                 fecha: req.body.fecha,

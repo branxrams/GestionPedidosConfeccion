@@ -5,7 +5,7 @@ export default function Layout({ children, pagina }) {
     return (
         <>
             <Head>
-                <title> Dayana Sport - {pagina} </title>
+                <title> {`Dayana Sport - ${pagina}`} </title>
                 <meta name="description" content="Confecciones Dayana Sport" />
             </Head>
             <div className="relative">
