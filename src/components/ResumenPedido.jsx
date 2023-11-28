@@ -28,7 +28,7 @@ export default function ResumenPedido({ producto }) {
             <div className="w-1/3 grid gap-5">
                 <button
                     type="button"
-                    className="flex gap-2 justify-center items-center bg-blue-rgba px-5 py-2 text-white rounded-md font-bold uppercase shadow-md w-full"
+                    className="flex gap-2 justify-center items-center bg-seagull-300 px-5 py-2 text-white rounded-md font-bold uppercase shadow-md w-full"
                     onClick={() => handleEditarAnotaciones(producto.id)}
                 >
                     <svg

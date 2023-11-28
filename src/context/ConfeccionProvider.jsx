@@ -12,9 +12,11 @@ const ConfeccionProvider = ({ children }) => {
     const [prenda, setPrenda] = useState({});
     const [modal, setModal] = useState(false);
     const [modalAnotaciones, setModalAnotaciones] = useState(false);
+    const [modalAbono, setModalAbono] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
     const [fecha, setFecha] = useState("");
+    const [pedidoActual, setPedidoActual] = useState([]);
 
     const router = useRouter();
 
@@ -46,12 +48,20 @@ const ConfeccionProvider = ({ children }) => {
         setPrenda(prenda);
     };
 
+    const handleSetPedidoActual = (pedido) => {
+        setPedidoActual(pedido);
+    };
+
     const handleChangeModal = () => {
         setModal(!modal);
     };
 
     const handleChangeModalAnotaciones = () => {
         setModalAnotaciones(!modalAnotaciones);
+    };
+
+    const handleChangeModalAbono = () => {
+        setModalAbono(!modalAbono);
     };
 
     const handleAgregarPedido = ({ ...prenda }) => {
@@ -151,8 +161,12 @@ const ConfeccionProvider = ({ children }) => {
                 handleColocarPedido,
                 total,
                 modalAnotaciones,
+                modalAbono,
                 handleChangeModalAnotaciones,
                 handleEditarAnotaciones,
+                handleChangeModalAbono,
+                pedidoActual,
+                handleSetPedidoActual,
             }}
         >
             {children}

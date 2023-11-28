@@ -9,7 +9,6 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                "blue-rgba": "rgba(95, 195, 225, 1)",
                 seagull: {
                     50: "#eefafd",
                     100: "#d5f1f8",

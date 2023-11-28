@@ -1,7 +1,26 @@
 import Head from "next/head";
+import Modal from "react-modal";
 import Sidebar from "@/components/Sidebar";
+import ModalAbono from "@/components/ModalAbono";
+import useConfeccion from "@/hooks/useConfeccion";
+import { ToastContainer } from "react-toastify";
+
+const customStyles = {
+    content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+    },
+};
+
+Modal.setAppElement("#__next");
 
 export default function Layout({ children, pagina }) {
+    const { modalAbono } = useConfeccion();
+
     return (
         <>
             <Head>
@@ -20,6 +39,12 @@ export default function Layout({ children, pagina }) {
                     </div>
                 </div>
             </div>
+            {modalAbono && (
+                <Modal isOpen={modalAbono} style={customStyles}>
+                    <ModalAbono />
+                </Modal>
+            )}
+            <ToastContainer autoClose={2000} position="top-left" />
         </>
     );
 }

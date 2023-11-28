@@ -36,13 +36,13 @@ export default function ModalPrenda() {
     }, [talla]);
 
     return (
-        <div className="md:flex gap-10">
-            <div className="md:w-1/3">
+        <div className="md:flex gap-10 items-center">
+            <div className="hidden md:block md:w-1/3">
                 <Image
                     width={300}
                     height={300}
                     alt={"Imagen Chest"}
-                    src={"/assets/img/basket.gif"}
+                    src={"/assets/img/basket.apng"}
                 />
             </div>
             <div className="md:w-2/3">
@@ -66,7 +66,7 @@ export default function ModalPrenda() {
                 </div>
 
                 <h1 className="text-3xl font-bold my-5">{prenda.colegio}</h1>
-                <p className=" mt-5 font-black text-4xl text-blue-rgba">
+                <p className=" mt-5 font-black text-4xl text-seagull-300">
                     {" "}
                     {prenda.prenda}{" "}
                 </p>
@@ -145,8 +145,8 @@ export default function ModalPrenda() {
                     type="button"
                     className={`${
                         talla
-                            ? "bg-indigo-600 hover:bg-indigo-400"
-                            : "bg-indigo-200 cursor-not-allowed"
+                            ? "bg-seagull-600 hover:bg-seagull-400"
+                            : "bg-seagull-200 cursor-not-allowed"
                     } px-5 py-2  text-white font-bold rounded-md`}
                     onClick={() => {
                         handleAgregarPedido({

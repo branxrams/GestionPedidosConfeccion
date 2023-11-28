@@ -17,6 +17,7 @@ export default async function handler(req, res) {
                 fecha: req.body.fecha,
                 total: req.body.total,
                 abono: req.body.datosPedido.abono,
+                restante: req.body.datosPedido.restante,
                 pedido: req.body.datosPedido.pedido,
             },
         });

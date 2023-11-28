@@ -13,7 +13,7 @@ export default function Total() {
     const [cedula, setCedula] = useState("");
     const [direccion, setDireccion] = useState("");
     const [telefono, setTelefono] = useState("");
-    const [abono, setAbono] = useState("");
+    const [abono, setAbono] = useState();
     const [error, setError] = useState(false);
 
     const comprobarPedido = useCallback(() => {
@@ -38,6 +38,8 @@ export default function Total() {
             direccion,
             telefono,
             abono: abono === "" ? 0 : parseFloat(abono),
+            restante:
+                abono === "" ? total : parseFloat(total) - parseFloat(abono),
             pedido,
         };
 
@@ -48,6 +50,20 @@ export default function Total() {
         setTelefono("");
         setDireccion("");
         setAbono("");
+    };
+
+    const handleChangeCantidad = (e) => {
+        let value = parseFloat(e.target.value);
+
+        if (value < 0) {
+            value = 0;
+        }
+
+        if (value > total) {
+            value = total;
+        }
+
+        setAbono(value);
     };
 
     return (
@@ -81,11 +97,11 @@ export default function Total() {
                                     Abono inicial
                                 </label>
                                 <input
-                                    className="bg-gray-200 mt-3 p-2 rounded-md"
+                                    className="bg-gray-200 text-xl mt-3 p-2 rounded-md hide-arrows text-center"
                                     id="abono"
-                                    type="text"
+                                    type="number"
                                     value={abono}
-                                    onChange={(e) => setAbono(e.target.value)}
+                                    onChange={handleChangeCantidad}
                                 />
                             </div>
                         </div>
@@ -156,8 +172,8 @@ export default function Total() {
                         <input
                             className={` ${
                                 comprobarPedido()
-                                    ? "bg-indigo-200 cursor-not-allowed"
-                                    : "bg-indigo-600 hover:bg-indigo-800 cursor-pointer"
+                                    ? "bg-seagull-200 cursor-not-allowed"
+                                    : "bg-seagull-600 hover:bg-seagull-800 cursor-pointer"
                             } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
                             type="submit"
                             value="Confirmar Pedido"

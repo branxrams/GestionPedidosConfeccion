@@ -3,7 +3,7 @@ import useConfeccion from "@/hooks/useConfeccion";
 
 export default function Reportes() {
     const { categoriaActual } = useConfeccion();
-    const nombre = categoriaActual?.nombre;
+    const nombre = "Reportes";
 
     return (
         <Layout pagina={`${nombre}`}>

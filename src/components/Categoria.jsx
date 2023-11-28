@@ -11,8 +11,10 @@ export default function Categoria({ categoria }) {
     return (
         <button
             className={`${
-                nombreRuta === "/" + nombre.toLowerCase() ? "bg-blue-rgba" : ""
-            } flex w-full justify-start items-center gap-4 border p-5 hover:bg-blue-rgba`}
+                nombreRuta === "/" + nombre.toLowerCase()
+                    ? "bg-seagull-300"
+                    : ""
+            } flex w-full justify-start items-center gap-4 border p-5 hover:bg-seagull-300`}
             onClick={() => router.push(`/${nombre.toLowerCase()}`)}
         >
             <Image

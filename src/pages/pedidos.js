@@ -5,8 +5,8 @@ import LayoutPedidos from "@/layouts/LayoutPedidos";
 import SeccionPrendas from "@/components/SeccionPrendas";
 
 export default function Pedidos() {
-    const { categoriaActual, prendas } = useConfeccion();
-    const nombre = categoriaActual?.nombre;
+    const { prendas } = useConfeccion();
+    const nombre = "Pedidos";
 
     const [item, setItem] = useState("");
 

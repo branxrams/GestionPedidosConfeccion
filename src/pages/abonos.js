@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import axios from "axios";
 import Layout from "@/layouts/Layout";
-import useConfeccion from "@/hooks/useConfeccion";
 import ListaPedidos from "@/components/ListaPedidos";
 
 export default function Abonos() {
@@ -10,15 +10,26 @@ export default function Abonos() {
     const [itemResultados, setItemResultados] = useState([]);
 
     const fetcher = () => axios("/api/pedidos").then((pedidos) => pedidos.data);
-    const { data } = useSWR("/api/pedidos", fetcher, { refreshInterval: 100 });
+    const { data } = useSWR("/api/pedidos", fetcher, {
+        refreshInterval: 100,
+    });
 
-    const { categoriaActual } = useConfeccion();
-
-    const nombre = categoriaActual?.nombre;
+    const nombre = "Abonos";
 
     const handleCriteriaChange = (e) => {
         setItemCriteria(e.target.value);
     };
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const result = await fetcher();
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        loadData();
+    }, []);
 
     useEffect(() => {
         let resultados = [];

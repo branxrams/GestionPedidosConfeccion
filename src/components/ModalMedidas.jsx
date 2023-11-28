@@ -24,13 +24,13 @@ export default function ModalMedidas() {
     }, [prenda, pedido]);
     return (
         <div className="md:flex gap-10">
-            <div className="md:w-1/3">
+            <div className="hidden md:block md:w-1/3">
                 <Image
                     className="w-28 md:w-72 lg:w-80"
                     width={300}
                     height={300}
                     alt={"Imagen Chest"}
-                    src={"/assets/img/book.gif"}
+                    src={"/assets/img/book.apng"}
                 />
             </div>
             <div className="md:w-2/3">
@@ -54,7 +54,7 @@ export default function ModalMedidas() {
                 </div>
 
                 <h1 className="text-3xl font-bold">{prenda.colegio}</h1>
-                <p className=" font-black text-4xl text-blue-rgba">
+                <p className=" font-black text-4xl text-seagull-300">
                     {" "}
                     {prenda.prenda}{" "}
                 </p>

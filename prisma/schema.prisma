@@ -25,6 +25,7 @@ model Pedidos {
   fecha     String
   total     Float
   abono     Float
+  restante  Float
   pedido    Json
   estado    String? @default("Pendiente")
 }

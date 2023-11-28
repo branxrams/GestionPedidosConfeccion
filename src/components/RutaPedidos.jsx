@@ -47,7 +47,7 @@ export default function RutaPedidos() {
             <div className="bg-gray-100 mb-10">
                 <div
                     style={{ width: `${calcularProgreso()}%` }}
-                    className="rounded-full bg-blue-rgba text-xs leading-none h-2 text-center text-white w-10"
+                    className="rounded-full bg-seagull-500 text-xs leading-none h-2 text-center text-white w-10"
                 ></div>
             </div>
         </>

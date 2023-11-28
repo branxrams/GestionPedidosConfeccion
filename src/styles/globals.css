@@ -13,3 +13,9 @@ body {
 #__next {
     height: 100%;
 }
+
+.hide-arrows::-webkit-inner-spin-button,
+.hide-arrows::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

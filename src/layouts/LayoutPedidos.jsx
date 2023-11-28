@@ -3,9 +3,9 @@ import { ToastContainer } from "react-toastify";
 import RutaPedidos from "@/components/RutaPedidos";
 import useConfeccion from "@/hooks/useConfeccion";
 import ModalPrenda from "@/components/ModalPrenda";
+import ModalMedidas from "@/components/ModalMedidas";
 
 import "react-toastify/dist/ReactToastify.css";
-import ModalMedidas from "@/components/ModalMedidas";
 
 const customStyles = {
     content: {
@@ -40,7 +40,7 @@ export default function LayoutPedidos({ children }) {
                     </Modal>
                 )}
             </section>
-            <ToastContainer autoClose={2000} />
+            <ToastContainer autoClose={2000} position="top-left" />
         </>
     );
 }

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import ListaPedidos from "@/components/ListaPedidos";
@@ -7,6 +8,17 @@ export default function Admin() {
     const fetcher = () => axios("/api/pedidos").then((pedidos) => pedidos.data);
 
     const { data } = useSWR("/api/pedidos", fetcher, { refreshInterval: 100 });
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const result = await fetcher();
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        loadData();
+    }, []);
 
     return (
         <Layout pagina={"Administración"}>
