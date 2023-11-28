@@ -126,6 +126,17 @@ const ConfeccionProvider = ({ children }) => {
         }
     };
 
+    const handleCancelarPedido = () => {
+        toast.error("Pedido Eliminado Completamente");
+        setPrenda({});
+        setPedido([]);
+        setTotal(0);
+
+        setTimeout(() => {
+            router.push("/pedidos");
+        }, 2000);
+    };
+
     useEffect(() => {
         obtenerCategorias();
         obtenerColegios();
@@ -167,6 +178,7 @@ const ConfeccionProvider = ({ children }) => {
                 handleChangeModalAbono,
                 pedidoActual,
                 handleSetPedidoActual,
+                handleCancelarPedido,
             }}
         >
             {children}

@@ -1,10 +1,6 @@
 import { formatearDinero } from "@/helpers";
 
 export default function Factura({ pedido }) {
-    const imprimirFactura = () => {
-        window.print();
-    };
-
     return (
         <div className="w-full flex items-center justify-center facturaContaiter">
             <table className="w-full border-collapse">

@@ -7,7 +7,8 @@ import { formatearDinero } from "@/helpers";
 import Factura from "@/components/Factura";
 
 export default function Total() {
-    const { handleColocarPedido, total, pedido } = useConfeccion();
+    const { handleColocarPedido, handleCancelarPedido, total, pedido } =
+        useConfeccion();
 
     const [nombre, setNombre] = useState("");
     const [cedula, setCedula] = useState("");
@@ -168,7 +169,7 @@ export default function Total() {
                             />
                         </div>
                     </div>
-                    <div className="mt-5">
+                    <div className="mt-5 space-x-10">
                         <input
                             className={` ${
                                 comprobarPedido()
@@ -177,6 +178,17 @@ export default function Total() {
                             } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
                             type="submit"
                             value="Confirmar Pedido"
+                            disabled={comprobarPedido()}
+                        />
+                        <input
+                            className={` ${
+                                comprobarPedido()
+                                    ? "bg-red-200 cursor-not-allowed"
+                                    : "bg-red-600 hover:bg-red-800 cursor-pointer"
+                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
+                            type="button"
+                            value="Cancelar pedido"
+                            onClick={handleCancelarPedido}
                             disabled={comprobarPedido()}
                         />
                     </div>
