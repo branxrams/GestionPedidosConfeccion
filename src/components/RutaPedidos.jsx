@@ -12,13 +12,13 @@ export default function RutaPedidos() {
     const calcularProgreso = () => {
         let valor;
         switch (router.pathname) {
-            case "/pedidos":
+            case "/pedidos/pedidos":
                 valor = 2;
                 break;
-            case "/resumen":
+            case "/pedidos/resumen":
                 valor = 50;
                 break;
-            case "/total":
+            case "/pedidos/total":
                 valor = 100;
                 break;
 
@@ -37,7 +37,7 @@ export default function RutaPedidos() {
                         key={paso.paso}
                         className="text-2xl font-bold boton-navegacion"
                         onClick={() => {
-                            router.push(paso.url);
+                            router.push(`/pedidos${paso.url}`);
                         }}
                     >
                         {paso.nombre}

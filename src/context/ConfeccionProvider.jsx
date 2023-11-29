@@ -15,7 +15,6 @@ const ConfeccionProvider = ({ children }) => {
     const [modalAbono, setModalAbono] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
-    const [fecha, setFecha] = useState("");
     const [pedidoActual, setPedidoActual] = useState([]);
 
     const router = useRouter();
@@ -41,7 +40,7 @@ const ConfeccionProvider = ({ children }) => {
     const handleCategoriaActual = (id) => {
         const categoria = categorias.filter((c) => c.id === id);
         setCategoriaActual(categoria[0]);
-        router.push(`/${categoriaActual?.nombre.toLowerCase()}`);
+        router.push(`/pedidos/${categoriaActual?.nombre.toLowerCase()}`);
     };
 
     const handleSetPrenda = (prenda) => {
@@ -119,7 +118,7 @@ const ConfeccionProvider = ({ children }) => {
             toast.success("Pedido Realizado Correctamente");
 
             setTimeout(() => {
-                router.push("/pedidos");
+                router.push("/pedidos/pedidos");
             }, 3000);
         } catch (error) {
             console.log(error);
@@ -133,7 +132,7 @@ const ConfeccionProvider = ({ children }) => {
         setTotal(0);
 
         setTimeout(() => {
-            router.push("/pedidos");
+            router.push("/pedidos/pedidos");
         }, 2000);
     };
 

@@ -15,7 +15,7 @@ export default function ListaPedidos({ pedidos }) {
     const router = useRouter();
 
     return (
-        <div className="border p-10 space-y-3 my-5">
+        <div className="border p-10 space-y-3 my-5 shadow-lg">
             <h3 className="text-2xl font-bold">Pedido #{id}</h3>
             <p className="text-lg font-bold">Cliente: {nombre}</p>
             <p className="text-sm font-bold">
