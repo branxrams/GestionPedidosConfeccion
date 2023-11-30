@@ -24,6 +24,7 @@ export default async function handler(req, res) {
 
             const nuevoUsuario = await prisma.usuario.create({
                 data: {
+                    id: generarId(),
                     rol: rol,
                     nombre: nombre,
                     password: passwordHashed,

@@ -9,7 +9,7 @@ export default function LayoutAuth({ children, pagina }) {
             <Head>
                 <title> {`Dayana Sport - ${pagina}`} </title>
                 <meta name="description" content="Confecciones Dayana Sport" />
-                <meta http-equiv="refresh" />
+                <meta httpEquiv="refresh" />
             </Head>
             <main className="container mx-auto mt-2 p-5 md:flex md:justify-center min-h-screen">
                 <div className="md:w-2/3 lg:w-2/5">{children}</div>

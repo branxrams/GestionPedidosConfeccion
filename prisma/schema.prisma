@@ -11,6 +11,7 @@ datasource db {
 }
 
 model Usuario {
+  id         String
   email      String  @unique
   nombre     String
   password   String

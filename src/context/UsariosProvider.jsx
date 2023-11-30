@@ -7,6 +7,7 @@ const UsuariosContext = createContext();
 
 const UsariosProvider = ({ children }) => {
     const [alerta, setAlerta] = useState({});
+    const [usuario, setUsuario] = useState({});
 
     const router = useRouter();
 
@@ -14,15 +15,22 @@ const UsariosProvider = ({ children }) => {
         setAlerta(alerta);
     };
 
+    const handleSetUsuario = (user) => {
+        setUsuario(user);
+    };
+
     const handleRegistroUsuario = async (userData) => {
         try {
-            const usuario = await axios.post("/api/usuarios", { userData });
-            toast.success(usuario?.data.msg);
+            const { data } = await axios.post("/api/usuarios/usuarios", {
+                userData,
+            });
+            toast.success(data?.msg);
+            toast.info("Correo de verificacion enviado");
             setAlerta({});
 
             setTimeout(() => {
                 router.push("/usuario/login");
-            }, 2000);
+            }, 4000);
         } catch (error) {
             toast.error(error.response?.data.msg);
         }
@@ -34,6 +42,8 @@ const UsariosProvider = ({ children }) => {
                 handleRegistroUsuario,
                 alerta,
                 handleSetAlerta,
+                usuario,
+                handleSetUsuario,
             }}
         >
             {children}

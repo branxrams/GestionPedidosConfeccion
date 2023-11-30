@@ -1,14 +1,62 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import axios from "axios";
 import LayoutAuth from "@/layouts/LayoutAuth";
+import useUsuario from "@/hooks/useUsuario";
+import Alert from "@/components/Alert";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const { alerta, handleSetAlerta, handleSetUsuario } = useUsuario();
+
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if ([email, password].includes("")) {
+            handleSetAlerta({
+                msg: "Todos los campos deben estar llenos",
+                error: true,
+            });
+            return;
+        }
+
+        handleSetAlerta({});
+
+        try {
+            const { data } = await axios.post("/api/usuarios/autenticar", {
+                email,
+                password,
+            });
+
+            if (data) {
+                handleSetUsuario(data);
+                router.push("/pedidos/");
+            }
+        } catch (error) {
+            console.log(error);
+            handleSetAlerta({
+                msg: error.response?.data.msg,
+                error: true,
+            });
+        }
+    };
+
     return (
         <LayoutAuth pagina={"Iniciar Sesión"}>
             <h1 className="text-slate-500 font-black text-4xl">
                 Inicia Sesion y Administra los{" "}
                 <span className="text-seagull-400">Pedidos</span>
             </h1>
-            <form className="my-10 bg-white shadow rounded-lg p-10">
+            {alerta.msg && <Alert alert={alerta} />}
+            <form
+                onSubmit={handleSubmit}
+                className="my-10 bg-white shadow rounded-lg p-10"
+            >
                 <div className="my-5">
                     <label
                         htmlFor="email"
@@ -22,6 +70,9 @@ export default function Login() {
                         id="email"
                         placeholder="Correo de usuario"
                         className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoComplete="email"
                     />
                 </div>
                 <div className="my-5">
@@ -37,6 +88,9 @@ export default function Login() {
                         id="password"
                         placeholder="Contraseña"
                         className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="current-password"
                     />
                 </div>
                 <input
