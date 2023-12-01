@@ -6,7 +6,6 @@ import SeccionPrendas from "@/components/SeccionPrendas";
 
 export default function Pedidos() {
     const { prendas } = useConfeccion();
-    const nombre = "Pedidos";
 
     const [item, setItem] = useState("");
 
@@ -15,7 +14,7 @@ export default function Pedidos() {
     );
 
     return (
-        <Layout pagina={`${nombre}`}>
+        <Layout pagina={`Pedidos`}>
             <LayoutPedidos>
                 <h1 className="text-4xl font-black">Prendas</h1>
                 <p className="text-xl my-5">Buscar y elegir la prenda</p>

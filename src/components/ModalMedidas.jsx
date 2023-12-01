@@ -24,7 +24,7 @@ export default function ModalMedidas() {
     }, [prenda, pedido]);
     return (
         <div className="md:flex gap-10">
-            <div className="hidden md:block md:w-1/3">
+            <div className="hidden md:block md:w-1/3 ">
                 <Image
                     className="w-28 md:w-72 lg:w-80"
                     width={300}

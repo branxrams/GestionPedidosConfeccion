@@ -13,6 +13,7 @@ const ConfeccionProvider = ({ children }) => {
     const [modal, setModal] = useState(false);
     const [modalAnotaciones, setModalAnotaciones] = useState(false);
     const [modalAbono, setModalAbono] = useState(false);
+    const [modalEstado, setModalEstado] = useState(false);
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0);
     const [pedidoActual, setPedidoActual] = useState([]);
@@ -61,6 +62,10 @@ const ConfeccionProvider = ({ children }) => {
 
     const handleChangeModalAbono = () => {
         setModalAbono(!modalAbono);
+    };
+
+    const handleChangeModalEstado = () => {
+        setModalEstado(!modalEstado);
     };
 
     const handleAgregarPedido = ({ ...prenda }) => {
@@ -136,6 +141,19 @@ const ConfeccionProvider = ({ children }) => {
         }, 2000);
     };
 
+    const handleActualizarPedido = async (pedido) => {
+        try {
+            const { data } = await axios.post(
+                "/api/pedidos/actualizar",
+                pedido
+            );
+
+            toast.success(data.msg);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         obtenerCategorias();
         obtenerColegios();
@@ -172,12 +190,15 @@ const ConfeccionProvider = ({ children }) => {
                 total,
                 modalAnotaciones,
                 modalAbono,
+                modalEstado,
                 handleChangeModalAnotaciones,
                 handleEditarAnotaciones,
                 handleChangeModalAbono,
+                handleChangeModalEstado,
                 pedidoActual,
                 handleSetPedidoActual,
                 handleCancelarPedido,
+                handleActualizarPedido,
             }}
         >
             {children}

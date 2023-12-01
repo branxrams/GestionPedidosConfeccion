@@ -154,6 +154,7 @@ export default function ModalPrenda() {
                             cantidad,
                             talla,
                             precio,
+                            estado: "Pendiente",
                         });
                     }}
                     disabled={!talla}

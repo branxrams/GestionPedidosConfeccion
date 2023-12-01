@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { formatearDinero, formatearFecha } from "@/helpers";
 import useConfeccion from "@/hooks/useConfeccion";
@@ -10,14 +10,24 @@ export default function ListaPedidos({ pedidos }) {
         setExpandir(!expandir);
     };
 
-    const { id, nombre, total, fecha, pedido, abono, restante } = pedidos;
-    const { handleChangeModalAbono, handleSetPedidoActual } = useConfeccion();
+    const { id, nombre, total, fecha, pedido, abono, restante, estado } =
+        pedidos;
+    const {
+        handleChangeModalAbono,
+        handleSetPedidoActual,
+        handleChangeModalEstado,
+        handleSetPrenda,
+    } = useConfeccion();
+
     const router = useRouter();
 
     return (
         <div className="border p-10 space-y-3 my-5 shadow-lg">
             <h3 className="text-2xl font-bold">Pedido #{id}</h3>
             <p className="text-lg font-bold">Cliente: {nombre}</p>
+            <p className="mt-5 font-black text text-lg text-seagull-950">
+                Estado: {estado}
+            </p>
             <p className="text-sm font-bold">
                 Fecha: {formatearFecha(parseInt(fecha))}
             </p>
@@ -35,7 +45,7 @@ export default function ListaPedidos({ pedidos }) {
                     height="50"
                     viewBox="0 0 24 24"
                     className={`text-seagull-800 transition-transform ${
-                        expandir && "transform rotate-180"
+                        !expandir && "transform rotate-180"
                     }`}
                 >
                     <path
@@ -45,31 +55,51 @@ export default function ListaPedidos({ pedidos }) {
                 </svg>
             </div>
 
-            {expandir && (
-                <div>
-                    {pedido.map((prenda) => (
-                        <div
-                            key={prenda.id}
-                            className="border-b last-of-type:border-0 rounded-sm my-3 px-5 py-3"
-                        >
-                            <div>
-                                <h4 className="text-2xl font-bold text-seagull-400">
-                                    Prenda: {prenda.prenda}
-                                </h4>
-                                <p className="text-lg font-bold">
-                                    Colegio: {prenda.colegio}
-                                </p>
-                                <p className="text-lg font-bold">
-                                    Cantidad: {prenda.cantidad}
-                                </p>
-                                <p className="text-lg font-bold">
-                                    Anotaciones: {prenda.anotacion ?? "No"}
-                                </p>
-                            </div>
+            <div
+                className={`overflow-hidden transition-all duration-500 ${
+                    expandir ? "max-h-96" : "max-h-0"
+                }`}
+            >
+                {pedido.map((prenda) => (
+                    <div
+                        key={prenda.id}
+                        className="border-b last-of-type:border-0 rounded-sm my-3 px-5 py-3 space-y-8 md:grid md:grid-cols-2"
+                    >
+                        <div>
+                            <h4 className="text-2xl font-bold text-seagull-400">
+                                Prenda: {prenda.prenda}
+                            </h4>
+                            <p className="text-lg font-bold">
+                                Colegio: {prenda.colegio}
+                            </p>
+                            <p className="text-lg font-bold">
+                                Cantidad: {prenda.cantidad}
+                            </p>
+                            <p className="text-lg font-bold">
+                                Anotaciones: {prenda.anotacion ?? "No"}
+                            </p>
+                            <p className="text-lg font-bold">
+                                Estado: {prenda.estado}
+                            </p>
                         </div>
-                    ))}
-                </div>
-            )}
+                        {router.pathname === "/pedidos/admin" && (
+                            <div>
+                                <button
+                                    type="button"
+                                    className="bg-seagull-400 hover:bg-seagull-700 text-white mt-10 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"
+                                    onClick={() => {
+                                        handleSetPrenda(prenda);
+                                        handleSetPedidoActual(pedidos);
+                                        handleChangeModalEstado();
+                                    }}
+                                >
+                                    Cambiar estado
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
 
             <div className="my-10">
                 <div className=" space-y-1 mb-5">
@@ -83,16 +113,8 @@ export default function ListaPedidos({ pedidos }) {
                         Restante: {formatearDinero(restante)}
                     </p>
                 </div>
-                {router.pathname === "/admin" && (
-                    <button
-                        type="button"
-                        className="bg-seagull-600 hover:bg-seagull-700 text-white mt-5 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"
-                    >
-                        Cambiar estado
-                    </button>
-                )}
 
-                {router.pathname === "/abonos" && (
+                {router.pathname === "/pedidos/abonos" && (
                     <button
                         type="button"
                         className="bg-seagull-600 hover:bg-seagull-700 text-white mt-5 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"

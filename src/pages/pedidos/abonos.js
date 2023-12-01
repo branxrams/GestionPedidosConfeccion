@@ -14,8 +14,6 @@ export default function Abonos() {
         refreshInterval: 100,
     });
 
-    const nombre = "Abonos";
-
     const handleCriteriaChange = (e) => {
         setItemCriteria(e.target.value);
     };
@@ -66,7 +64,7 @@ export default function Abonos() {
     }, [item, itemCriteria, data]);
 
     return (
-        <Layout pagina={`${nombre}`}>
+        <Layout pagina={`Abonos`}>
             <h1 className="text-4xl font-black">Abonos</h1>
             <p className="text-xl my-5">Buscar el pedido</p>
             <form className="flex flex-col py-5 px-3 shadow-md border mb-5 rounded-md">

@@ -21,25 +21,24 @@ const customStyles = {
 Modal.setAppElement("#__next");
 
 export default function LayoutPedidos({ children }) {
-    const { modal, prenda, modalAnotaciones } = useConfeccion();
+    const { modal, modalAnotaciones } = useConfeccion();
 
     return (
         <>
             <section>
                 <RutaPedidos />
                 {children}
-
-                {modal && (
-                    <Modal isOpen={modal} style={customStyles}>
-                        <ModalPrenda />
-                    </Modal>
-                )}
-                {modalAnotaciones && (
-                    <Modal isOpen={modalAnotaciones} style={customStyles}>
-                        <ModalMedidas />
-                    </Modal>
-                )}
             </section>
+            {modal && (
+                <Modal isOpen={modal} style={customStyles}>
+                    <ModalPrenda />
+                </Modal>
+            )}
+            {modalAnotaciones && (
+                <Modal isOpen={modalAnotaciones} style={customStyles}>
+                    <ModalMedidas />
+                </Modal>
+            )}
             <ToastContainer autoClose={2000} position="top-left" />
         </>
     );

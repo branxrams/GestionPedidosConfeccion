@@ -35,7 +35,7 @@ export default function Login() {
 
             if (data) {
                 handleSetUsuario(data);
-                router.push("/pedidos/");
+                router.push("/pedidos/pedidos");
             }
         } catch (error) {
             console.log(error);

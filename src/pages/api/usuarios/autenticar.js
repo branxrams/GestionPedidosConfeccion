@@ -28,6 +28,7 @@ export default async function handler(req, res) {
                 id: usuarioEncontrado.id,
                 nombre: usuarioEncontrado.nombre,
                 email: usuarioEncontrado.email,
+                rol: usuarioEncontrado.rol,
                 token: generarJWT(usuarioEncontrado.id),
             });
         } else {

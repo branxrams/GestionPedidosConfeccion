@@ -7,6 +7,7 @@ import ModalAbono from "@/components/ModalAbono";
 import { ToastContainer } from "react-toastify";
 import useConfeccion from "@/hooks/useConfeccion";
 import useUsuario from "@/hooks/useUsuario";
+import ModalCambiarEstado from "@/components/modalCambiarEstado";
 
 const customStyles = {
     content: {
@@ -24,19 +25,19 @@ Modal.setAppElement("#__next");
 export default function Layout({ children, pagina }) {
     const [mostrarMensaje, setMostrarMensaje] = useState(false);
 
-    const { modalAbono } = useConfeccion();
-    const { usuario } = useUsuario();
+    const { modalAbono, modalEstado } = useConfeccion();
+    // const { usuario } = useUsuario();
 
     const router = useRouter();
 
-    useEffect(() => {
-        if (Object.keys(usuario).length === 0) {
-            setMostrarMensaje(true);
-            setTimeout(() => {
-                router.push("/usuario/login");
-            }, 3000);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (Object.keys(usuario).length === 0) {
+    //         setMostrarMensaje(true);
+    //         setTimeout(() => {
+    //             router.push("/usuario/login");
+    //         }, 3000);
+    //     }
+    // }, []);
 
     return (
         <>
@@ -66,6 +67,11 @@ export default function Layout({ children, pagina }) {
             {modalAbono && (
                 <Modal isOpen={modalAbono} style={customStyles}>
                     <ModalAbono />
+                </Modal>
+            )}
+            {modalEstado && (
+                <Modal isOpen={modalEstado} style={customStyles}>
+                    <ModalCambiarEstado />
                 </Modal>
             )}
             <ToastContainer autoClose={2000} position="top-left" />
