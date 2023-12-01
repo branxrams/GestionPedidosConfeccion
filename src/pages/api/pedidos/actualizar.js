@@ -36,6 +36,12 @@ export default async function handler(req, res) {
               )
             ? "Empacado"
             : "Pendiente";
+        console.log(pedidoActualizado);
+        console.log(
+            pedidoActualizado.pedido.every(
+                (prenda) => prenda.estado === "Entregado"
+            )
+        );
 
         const estadoActualizado = await prisma.pedidos.update({
             where: {

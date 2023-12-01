@@ -23,12 +23,6 @@ module.exports = {
                     950: "#102b3c",
                 },
             },
-            gridTemplateRows: {
-                "grid-rows": "30px 200px 30px",
-            },
-            textColor: {
-                "bluer-gba": "rgba(95, 195, 225, 1)",
-            },
         },
     },
     plugins: [],

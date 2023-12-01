@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { formatearDinero, formatearFecha } from "@/helpers";
 import useConfeccion from "@/hooks/useConfeccion";
 
 export default function ListaPedidos({ pedidos }) {
     const [expandir, setExpandir] = useState(false);
+    const [altura, setAltura] = useState("0px");
+    const contenedor = useRef(null);
 
     const toggleExpandir = () => {
         setExpandir(!expandir);
@@ -20,6 +22,14 @@ export default function ListaPedidos({ pedidos }) {
     } = useConfeccion();
 
     const router = useRouter();
+
+    useEffect(() => {
+        if (contenedor.current) {
+            setAltura(
+                expandir ? `${contenedor.current.scrollHeight}px` : "0px"
+            );
+        }
+    }, [expandir]);
 
     return (
         <div className="border p-10 space-y-3 my-5 shadow-lg">
@@ -56,49 +66,50 @@ export default function ListaPedidos({ pedidos }) {
             </div>
 
             <div
-                className={`overflow-hidden transition-all duration-500 ${
-                    expandir ? "max-h-96" : "max-h-0"
-                }`}
+                className={`overflow-hidden transition-all duration-500 `}
+                style={{ maxHeight: altura }}
             >
-                {pedido.map((prenda) => (
-                    <div
-                        key={prenda.id}
-                        className="border-b last-of-type:border-0 rounded-sm my-3 px-5 py-3 space-y-8 md:grid md:grid-cols-2"
-                    >
-                        <div>
-                            <h4 className="text-2xl font-bold text-seagull-400">
-                                Prenda: {prenda.prenda}
-                            </h4>
-                            <p className="text-lg font-bold">
-                                Colegio: {prenda.colegio}
-                            </p>
-                            <p className="text-lg font-bold">
-                                Cantidad: {prenda.cantidad}
-                            </p>
-                            <p className="text-lg font-bold">
-                                Anotaciones: {prenda.anotacion ?? "No"}
-                            </p>
-                            <p className="text-lg font-bold">
-                                Estado: {prenda.estado}
-                            </p>
-                        </div>
-                        {router.pathname === "/pedidos/admin" && (
+                <div ref={contenedor}>
+                    {pedido.map((prenda) => (
+                        <div
+                            key={prenda.id}
+                            className="border-b last-of-type:border-0 rounded-sm my-3 px-5 py-3 space-y-8 md:grid md:grid-cols-2"
+                        >
                             <div>
-                                <button
-                                    type="button"
-                                    className="bg-seagull-400 hover:bg-seagull-700 text-white mt-10 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"
-                                    onClick={() => {
-                                        handleSetPrenda(prenda);
-                                        handleSetPedidoActual(pedidos);
-                                        handleChangeModalEstado();
-                                    }}
-                                >
-                                    Cambiar estado
-                                </button>
+                                <h4 className="text-2xl font-bold text-seagull-400">
+                                    Prenda: {prenda.prenda}
+                                </h4>
+                                <p className="text-lg font-bold">
+                                    Colegio: {prenda.colegio}
+                                </p>
+                                <p className="text-lg font-bold">
+                                    Cantidad: {prenda.cantidad}
+                                </p>
+                                <p className="text-lg font-bold">
+                                    Anotaciones: {prenda.anotacion ?? "No"}
+                                </p>
+                                <p className="text-lg font-bold">
+                                    Estado: {prenda.estado}
+                                </p>
                             </div>
-                        )}
-                    </div>
-                ))}
+                            {router.pathname === "/pedidos/admin" && (
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="bg-seagull-400 hover:bg-seagull-700 text-white mt-10 md:mt-0 py-3 px-10 uppercase font-bold rounded-lg"
+                                        onClick={() => {
+                                            handleSetPrenda(prenda);
+                                            handleSetPedidoActual(pedidos);
+                                            handleChangeModalEstado();
+                                        }}
+                                    >
+                                        Cambiar estado
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div className="my-10">
