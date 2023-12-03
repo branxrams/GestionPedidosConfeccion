@@ -12,6 +12,9 @@ export const formatearFecha = (fecha) => {
         year: "numeric",
         month: "long",
         day: "2-digit",
+        // hour: "2-digit",
+        // minute: "2-digit",
+        // second: "2-digit",
     };
     return new Date(fecha).toLocaleDateString("es-ES", opciones);
 };
@@ -22,8 +25,8 @@ export const generarId = () => {
     return random + fecha;
 };
 
-export const generarJWT = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
+export const generarJWT = (data) => {
+    return jwt.sign(data, process.env.JWT_SECRET, {
+        expiresIn: "24h",
     });
 };

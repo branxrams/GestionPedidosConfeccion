@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,62 +7,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id         String
-  email      String  @unique
-  nombre     String
-  password   String
-  rol        String
-  token      String
-  confirmado Boolean @default(false)
-}
-
 model Categoria {
   id     Int    @id @default(autoincrement())
   nombre String
   icono  String
+  acceso Json
 }
 
-model Pedidos {
+model colegios {
+  id      Int       @id @default(autoincrement())
+  nombre  String
+  precios precios[]
+}
+
+model pedidos {
   id        Int     @id @default(autoincrement())
   nombre    String
-  cedula    String
   direccion String
   telefono  String
   fecha     String
   total     Float
   abono     Float
-  restante  Float
   pedido    Json
   estado    String? @default("Pendiente")
+  cedula    String
+  restante  Float
 }
 
-model Colegios {
-  id      Int       @id @default(autoincrement())
-  nombre  String
-  Precios Precios[]
-}
-
-model TipoPrendas {
-  id      Int       @id @default(autoincrement())
-  nombre  String
-  Precios Precios[]
-}
-
-model Tallas {
-  id      Int       @id @default(autoincrement())
-  talla   String
-  Precios Precios[]
-}
-
-model Precios {
+model precios {
   id          Int         @id @default(autoincrement())
   precio      Float
   colegioId   Int
   prendaId    Int
   tallaId     Int
-  //relation
-  colegios    Colegios    @relation(fields: [colegioId], references: [id])
-  tipoPrendas TipoPrendas @relation(fields: [prendaId], references: [id])
-  tallas      Tallas      @relation(fields: [tallaId], references: [id])
+  colegios    colegios    @relation(fields: [colegioId], references: [id], map: "Precios_colegioId_fkey")
+  tipoprendas tipoprendas @relation(fields: [prendaId], references: [id], map: "Precios_prendaId_fkey")
+  tallas      tallas      @relation(fields: [tallaId], references: [id], map: "Precios_tallaId_fkey")
+
+  @@index([colegioId], map: "Precios_colegioId_fkey")
+  @@index([prendaId], map: "Precios_prendaId_fkey")
+  @@index([tallaId], map: "Precios_tallaId_fkey")
+}
+
+model tallas {
+  id      Int       @id @default(autoincrement())
+  talla   String
+  precios precios[]
+}
+
+model tipoprendas {
+  id      Int       @id @default(autoincrement())
+  nombre  String
+  precios precios[]
+}
+
+model usuario {
+  email      String  @unique(map: "Usuario_email_key")
+  nombre     String
+  password   String
+  rol        String
+  token      String
+  confirmado Boolean @default(false)
+  id         String
 }

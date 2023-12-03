@@ -35,7 +35,7 @@ export default function RutaPedidos() {
                     <button
                         type="button"
                         key={paso.paso}
-                        className="text-2xl font-bold boton-navegacion"
+                        className="text-xl sm:text-2xl  lg:text-4xl font-bold boton-navegacion"
                         onClick={() => {
                             router.push(`/pedidos${paso.url}`);
                         }}

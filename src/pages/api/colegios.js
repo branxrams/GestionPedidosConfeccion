@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
     const colegios = await prisma.colegios.findMany({
         include: {
-            Precios: {
+            precios: {
                 include: {
                     tallas: true,
-                    tipoPrendas: true,
+                    tipoprendas: true,
                 },
             },
         },
@@ -24,8 +24,8 @@ export default async function handler(req, res) {
 
         const prendasMap = {};
 
-        colegio.Precios.forEach((precio) => {
-            const prendaId = precio.tipoPrendas.id;
+        colegio.precios.forEach((precio) => {
+            const prendaId = precio.tipoprendas.id;
 
             if (!prendasMap[prendaId]) {
                 prendasMap[prendaId] = {
@@ -33,9 +33,9 @@ export default async function handler(req, res) {
                         "SKU-" +
                         colegio.nombre +
                         "-" +
-                        precio.tipoPrendas.nombre,
+                        precio.tipoprendas.nombre,
                     colegio: colegio.nombre,
-                    prenda: precio.tipoPrendas.nombre,
+                    prenda: precio.tipoprendas.nombre,
                     precios: [],
                 };
             }

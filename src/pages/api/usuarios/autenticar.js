@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { generarJWT } from "@/helpers";
+import cookie from "cookie";
+import { generarJWT } from "@/utils";
 
 const prisma = new PrismaClient();
 
@@ -24,12 +25,18 @@ export default async function handler(req, res) {
         );
 
         if (validarPassword) {
+            const token = generarJWT({ id: usuarioEncontrado.id });
+            const serialized = cookie.serialize("userToken", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+                maxAge: 1000 * 60 * 60 * 24 * 30,
+                path: "/",
+            });
+
+            res.setHeader("Set-Cookie", serialized);
             res.status(200).json({
-                id: usuarioEncontrado.id,
-                nombre: usuarioEncontrado.nombre,
-                email: usuarioEncontrado.email,
-                rol: usuarioEncontrado.rol,
-                token: generarJWT(usuarioEncontrado.id),
+                msg: "Inicio Correcto",
             });
         } else {
             return res.status(404).json({ msg: "La Contraseña es incorrecta" });

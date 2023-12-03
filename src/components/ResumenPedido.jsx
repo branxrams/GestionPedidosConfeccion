@@ -1,5 +1,5 @@
 import useConfeccion from "@/hooks/useConfeccion";
-import { formatearDinero } from "@/helpers";
+import { formatearDinero } from "@/utils";
 
 export default function ResumenPedido({ producto }) {
     const {

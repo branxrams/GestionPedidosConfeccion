@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -35,6 +35,18 @@ const UsariosProvider = ({ children }) => {
             toast.error(error.response?.data.msg);
         }
     };
+
+    useEffect(() => {
+        const verificarUsuario = async () => {
+            try {
+                const { data } = await axios("/api/usuarios/perfil");
+                setUsuario(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        verificarUsuario();
+    }, []);
 
     return (
         <UsuariosContext.Provider

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { formatearDinero, formatearFecha } from "@/helpers";
+import { formatearDinero, formatearFecha } from "@/utils";
 import useConfeccion from "@/hooks/useConfeccion";
 
 export default function ListaPedidos({ pedidos }) {
@@ -14,6 +14,7 @@ export default function ListaPedidos({ pedidos }) {
 
     const { id, nombre, total, fecha, pedido, abono, restante, estado } =
         pedidos;
+
     const {
         handleChangeModalAbono,
         handleSetPedidoActual,

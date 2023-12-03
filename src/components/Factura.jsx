@@ -1,4 +1,4 @@
-import { formatearDinero } from "@/helpers";
+import { formatearDinero } from "@/utils";
 
 export default function Factura({ pedido }) {
     return (

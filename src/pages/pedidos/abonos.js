@@ -18,16 +18,16 @@ export default function Abonos() {
         setItemCriteria(e.target.value);
     };
 
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const result = await fetcher();
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        loadData();
-    }, []);
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         try {
+    //             const result = await fetcher();
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     loadData();
+    // }, []);
 
     useEffect(() => {
         let resultados = [];

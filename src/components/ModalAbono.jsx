@@ -3,7 +3,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import axios from "axios";
 import useConfeccion from "@/hooks/useConfeccion";
-import { formatearDinero } from "@/helpers";
+import { formatearDinero } from "@/utils";
 
 export default function ModalAbono() {
     const [cantidadAbono, setCantidadAbono] = useState();

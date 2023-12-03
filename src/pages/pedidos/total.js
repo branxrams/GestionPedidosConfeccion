@@ -3,7 +3,7 @@ import useConfeccion from "@/hooks/useConfeccion";
 import Layout from "@/layouts/Layout";
 import LayoutPedidos from "@/layouts/LayoutPedidos";
 import Error from "@/components/Error";
-import { formatearDinero } from "@/helpers";
+import { formatearDinero } from "@/utils";
 import Factura from "@/components/Factura";
 
 export default function Total() {
@@ -14,7 +14,7 @@ export default function Total() {
     const [cedula, setCedula] = useState("");
     const [direccion, setDireccion] = useState("");
     const [telefono, setTelefono] = useState("");
-    const [abono, setAbono] = useState();
+    const [abono, setAbono] = useState(0);
     const [error, setError] = useState(false);
 
     const comprobarPedido = useCallback(() => {

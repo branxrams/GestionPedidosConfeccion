@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { generarId } from "@/helpers";
-import emailRegistro from "@/helpers/email";
+import { generarId } from "@/utils";
+import emailRegistro from "@/utils/email";
 import bcrypt from "bcrypt";
 
 export default async function handler(req, res) {

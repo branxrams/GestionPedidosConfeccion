@@ -5,6 +5,7 @@ import axios from "axios";
 import LayoutAuth from "@/layouts/LayoutAuth";
 import useUsuario from "@/hooks/useUsuario";
 import Alert from "@/components/Alert";
+import { toast } from "react-toastify";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -33,10 +34,11 @@ export default function Login() {
                 password,
             });
 
-            if (data) {
-                handleSetUsuario(data);
+            toast.success(data.msg);
+
+            setTimeout(() => {
                 router.push("/pedidos/pedidos");
-            }
+            }, 2000);
         } catch (error) {
             console.log(error);
             handleSetAlerta({

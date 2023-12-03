@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useConfeccion from "@/hooks/useConfeccion";
 import Image from "next/image";
-import { formatearDinero } from "@/helpers";
+import { formatearDinero } from "@/utils";
 
 export default function ModalPrenda() {
     const { prenda, handleChangeModal, handleAgregarPedido, pedido } =

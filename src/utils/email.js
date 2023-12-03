@@ -6,8 +6,8 @@ export default async function emailRegistro(userData) {
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
-            user: "f45aa68e243f68",
-            pass: "af7d58b9ae29ab",
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS,
         },
     });
 
