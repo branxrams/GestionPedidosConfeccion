@@ -1,15 +1,16 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Categoria from "./Categoria";
 import useConfeccion from "@/hooks/useConfeccion";
+import useUsuario from "@/hooks/useUsuario";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import useUsuario from "@/hooks/useUsuario";
 
 export default function Sidebar() {
     const { categorias } = useConfeccion();
-    const { usuario } = useUsuario();
+    const { usuario, verificarUsuario } = useUsuario();
     const router = useRouter();
 
     const logOut = async () => {
@@ -17,8 +18,13 @@ export default function Sidebar() {
         toast.success(response.data.msg);
         setTimeout(() => {
             router.push("/");
-        }, 100);
+        }, 2000);
     };
+
+    useEffect(() => {
+        verificarUsuario();
+    }, []);
+
     return (
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50">
             <Link
@@ -37,8 +43,8 @@ export default function Sidebar() {
                     categoria.acceso.some(
                         (acceso) => acceso.permiso === usuario.rol
                     ) &&
-                    (usuario.rol === "administrador" ||
-                        usuario.rol === "empleado") ? (
+                    (usuario.rol === "Administrador" ||
+                        usuario.rol === "Empleado") ? (
                         <Categoria key={categoria.id} categoria={categoria} />
                     ) : null
                 )}

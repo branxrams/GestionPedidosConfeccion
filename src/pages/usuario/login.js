@@ -101,20 +101,6 @@ export default function Login() {
                     className="bg-seagull-300 mb-5 w-full py-3 text-white uppercase font-bold rounded-lg cursor-pointer hover:bg-seagull-500"
                 />
             </form>
-            <nav className="lg:flex lg:justify-between">
-                <Link
-                    className="block text-center my-5 textsl500 uppercase text-sm"
-                    href={"/usuario/registro"}
-                >
-                    ¿No tienes una cuenta? Regístrate
-                </Link>
-                <Link
-                    className="block text-center my-5 textsl500 uppercase text-sm"
-                    href={"/usuario/olvidepassword"}
-                >
-                    Olvide mi Contraseña
-                </Link>
-            </nav>
         </LayoutAuth>
     );
 }

@@ -39,7 +39,7 @@ export default function LayoutPedidos({ children }) {
                     <ModalMedidas />
                 </Modal>
             )}
-            <ToastContainer autoClose={2000} position="top-left" />
+            {/* <ToastContainer autoClose={2000} position="top-left" /> */}
         </>
     );
 }

@@ -1,14 +1,20 @@
+import { useState } from "react";
 import Head from "next/head";
 import Modal from "react-modal";
 import Sidebar from "@/components/Sidebar";
 import ModalAbono from "@/components/ModalAbono";
-import { ToastContainer } from "react-toastify";
-import useConfeccion from "@/hooks/useConfeccion";
+import ModalNuevoUser from "@/components/ModalNuevoUser";
 import ModalCambiarEstado from "@/components/modalCambiarEstado";
-import { useState } from "react";
+import useConfeccion from "@/hooks/useConfeccion";
+import { ToastContainer } from "react-toastify";
+import useUsuario from "@/hooks/useUsuario";
+import ModalCambioRol from "@/components/ModalcambioRol";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const customStyles = {
     content: {
+        zIndex: "50",
         top: "50%",
         left: "50%",
         right: "auto",
@@ -22,12 +28,13 @@ Modal.setAppElement("#__next");
 
 export default function Layout({ children, pagina }) {
     const { modalAbono, modalEstado } = useConfeccion();
+    const { modalRol, modalNuevoUser } = useUsuario();
     const [toggleSidebar, setToggleSidebar] = useState(false);
-
+    const title = `Dayana Sport - ${pagina}`;
     return (
         <>
             <Head>
-                <title> {`Dayana Sport - ${pagina}`} </title>
+                <title> DayanaSport </title>
                 <meta name="description" content="Confecciones Dayana Sport" />
             </Head>
 
@@ -71,13 +78,23 @@ export default function Layout({ children, pagina }) {
                     <ModalCambiarEstado />
                 </Modal>
             )}
-            <ToastContainer autoClose={2000} position="top-left" />
+            {modalNuevoUser && (
+                <Modal isOpen={modalNuevoUser} style={customStyles}>
+                    <ModalNuevoUser />
+                </Modal>
+            )}
+            {modalRol && (
+                <Modal isOpen={modalRol} style={customStyles}>
+                    <ModalCambioRol />
+                </Modal>
+            )}
             {toggleSidebar && (
                 <div
                     onClick={() => setToggleSidebar()}
                     className="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30"
                 ></div>
             )}
+            <ToastContainer autoClose={2000} position="top-left" />
         </>
     );
 }

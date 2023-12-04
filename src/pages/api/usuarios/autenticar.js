@@ -18,6 +18,11 @@ export default async function handler(req, res) {
         if (!usuarioEncontrado) {
             return res.status(404).json({ msg: "Usuario no encontrado" });
         }
+        if (!usuarioEncontrado.confirmado) {
+            return res.status(404).json({
+                msg: "Su cuenta aun no ha sido confirmada, revise su correo y confirme su cuenta",
+            });
+        }
 
         const validarPassword = await bcrypt.compare(
             password,
@@ -25,7 +30,10 @@ export default async function handler(req, res) {
         );
 
         if (validarPassword) {
-            const token = generarJWT({ id: usuarioEncontrado.id });
+            const token = generarJWT({
+                id: usuarioEncontrado.id,
+                rol: usuarioEncontrado.rol,
+            });
             const serialized = cookie.serialize("userToken", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",

@@ -74,7 +74,7 @@ export default function ModalPrenda() {
                     {formatearDinero(precio ? precio : 0)}
                 </p>
 
-                <div className="flex gap-10 my-5 items-center">
+                <div className="flex flex-col md:flex-row gap-10 my-5 items-center">
                     <div className="flex gap-4">
                         <button
                             type="button"
@@ -147,7 +147,7 @@ export default function ModalPrenda() {
                         talla
                             ? "bg-seagull-600 hover:bg-seagull-400"
                             : "bg-seagull-200 cursor-not-allowed"
-                    } px-5 py-2  text-white font-bold rounded-md`}
+                    } px-5 py-2 text-white font-bold rounded-md justify-center`}
                     onClick={() => {
                         handleAgregarPedido({
                             ...prenda,

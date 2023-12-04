@@ -78,19 +78,13 @@ export default function Total() {
                 </p>
 
                 <form onSubmit={handleArmarPedido}>
-                    <div className="grid grid-rows-2">
-                        <div className="mt-10 flex flex-col justify-between items-center mb-10">
+                    <div className="grid grid-rows-2 grid-cols-1">
+                        <div className="flex flex-col justify-between items-center my-10 bg-white shadow rounded-lg p-10">
                             <div className="w-full flex flex-col items-center">
                                 <h1 className="text-lg font-bold">Resumen</h1>
                                 <Factura pedido={pedido} />
-                                <p className="text-2xl mt-12">
-                                    Total a pagar:{" "}
-                                    <span className="font-bold">
-                                        {formatearDinero(total)}
-                                    </span>
-                                </p>
                             </div>
-                            <div>
+                            <div className="mt-10">
                                 <label
                                     htmlFor="abono"
                                     className="block uppercase text-slate-800 font-bold text-xl"
@@ -106,7 +100,7 @@ export default function Total() {
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="my-10 bg-white shadow rounded-lg p-10">
                             {error && (
                                 <Error>
                                     <p>Datos del cliente son obligatorios</p>
@@ -168,29 +162,29 @@ export default function Total() {
                                 onChange={(e) => setDireccion(e.target.value)}
                             />
                         </div>
-                    </div>
-                    <div className="mt-5 space-x-10">
-                        <input
-                            className={` ${
-                                comprobarPedido()
-                                    ? "bg-seagull-200 cursor-not-allowed"
-                                    : "bg-seagull-600 hover:bg-seagull-800 cursor-pointer"
-                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
-                            type="submit"
-                            value="Confirmar Pedido"
-                            disabled={comprobarPedido()}
-                        />
-                        <input
-                            className={` ${
-                                comprobarPedido()
-                                    ? "bg-red-200 cursor-not-allowed"
-                                    : "bg-red-600 hover:bg-red-800 cursor-pointer"
-                            } text-center w-full lg:w-auto px-5 py-2 rounded-md uppercase font-bold text-white`}
-                            type="button"
-                            value="Cancelar pedido"
-                            onClick={handleCancelarPedido}
-                            disabled={comprobarPedido()}
-                        />
+                        <div className="w-full px-10 gap-5 grid grid-cols-1 grid-rows-2 md:grid-cols-2">
+                            <input
+                                className={` ${
+                                    comprobarPedido()
+                                        ? "bg-seagull-200 cursor-not-allowed"
+                                        : "bg-seagull-600 hover:bg-seagull-800 cursor-pointer"
+                                } text-center w-full  px-5 py-2 rounded-md uppercase font-bold text-white`}
+                                type="submit"
+                                value="Confirmar Pedido"
+                                disabled={comprobarPedido()}
+                            />
+                            <input
+                                className={` ${
+                                    comprobarPedido()
+                                        ? "bg-red-200 cursor-not-allowed"
+                                        : "bg-red-600 hover:bg-red-800 cursor-pointer"
+                                } text-center w-full px-5 py-2 rounded-md uppercase font-bold text-white`}
+                                type="button"
+                                value="Cancelar pedido"
+                                onClick={handleCancelarPedido}
+                                disabled={comprobarPedido()}
+                            />
+                        </div>
                     </div>
                 </form>
             </LayoutPedidos>

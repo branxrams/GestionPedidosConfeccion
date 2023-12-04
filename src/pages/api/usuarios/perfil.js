@@ -20,12 +20,14 @@ const handler = async (req, res) => {
         if (!user) {
             return res.status(404).json({ msg: "Usuario no encontrado" });
         }
+
         res.status(200).json({
             nombre: user.nombre,
             correo: user.email,
             rol: user.rol,
         });
     } catch (error) {
+        console.log(error);
         res.status(401).json({ msg: "Token Invalido" });
     }
 };
